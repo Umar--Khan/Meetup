@@ -1,0 +1,24 @@
+<div>
+   <% if flash[:errors] %>
+      <% flash[:errors].each do |error| %>
+         <div><%= error %></div>
+      <% end %>
+   <% end %>
+</div>
+<div>
+   <%= form_for @tag do |f| %>
+   <div>
+      <%= f.label :main_tag %>
+      <%= f.text_field :main_tag %>
+   </div>
+   <div>
+      <%= f.label :sub_tag_01 %>
+      <%= f.text_field :sub_tag_01 %>
+   </div>
+   <div>
+      <%= f.label :sub_tag_02 %>
+      <%= f.text_field :sub_tag_02 %>
+   </div>
+      <%= f.submit 'save' %>
+   <% end %>
+</div>

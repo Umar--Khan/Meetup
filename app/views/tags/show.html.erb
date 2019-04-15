@@ -1,2 +1,7 @@
 <h1>Tags#show</h1>
-<p>Find me in app/views/tags/show.html.erb</p>
+<h4><%=@tag.main_tag%></h4>
+<h4><%=@tag.sub_tag_01%></h4>
+<h4><%=@tag.sub_tag_02%></h4>
+<%= link_to 'tags', tags_path%>
+<%= link_to 'delete', tag_path(@tag), method: :delete %>
+<%= link_to 'edit', "#{tag_path(@tag)}/edit" %>
