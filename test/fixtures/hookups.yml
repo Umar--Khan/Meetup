@@ -1,0 +1,7 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  time_date: 2019-04-15 13:55:04
+
+two:
+  time_date: 2019-04-15 13:55:04
