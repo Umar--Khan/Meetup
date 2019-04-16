@@ -1,2 +1,18 @@
-<h1>Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
+<h1><%=@event.name%></h1>
+
+<h4>Owner of MeetUp: <%= link_to @groups.user.name, user_path(@groups) %></h4>
+
+<h4>Event Date: <%=@event.time.strftime('%B %d, %Y at %H:%M')%></h4>
+<h4>Event Location: <%=@event.loc%></h4>
+<h4>Max People: <%=@groups.number%></h4>
+
+
+
+<h4><%= link_to 'Image', @imgs.url %></h4>
+<h4><%= link_to 'Group messages', message_path(@messages) %></h4>
+
+<%= link_to 'Edit Event', edit_event_path(@event) %>
+<%= link_to 'Delete Event', event_path(@event), method: :delete %>
+
+
+
