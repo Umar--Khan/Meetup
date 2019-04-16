@@ -1,2 +1,35 @@
-<h1>Events#new</h1>
-<p>Find me in app/views/events/new.html.erb</p>
+<% if flash[:errors] %>
+<ul>
+    <% flash[:errors].each do |error| %>
+    <li>Error: <%= error %></li>
+    <% end %>
+</ul>
+<% end %>
+
+<h1>New Event</h1>
+<%= form_for(@event) do |f| %>
+
+<label>Title of Event:</label><br>
+<%= f.text_field :name%><br>
+
+<label>Location:</label><br>
+<%= f.text_field :loc%><br>
+
+<label>Set a time:</label><br>
+<%= f.date_field :time, as: :date, value: f.object.try(:strftime,"%d/%m/%Y"), class: 'form-control' %><br>
+
+<%= f.fields_for :imgs do |x| %>
+    <label>Main Tag:</label><br>
+        <%= x.text_field :url %>
+    <% end %>
+<%= f.submit %>
+<% end %>
+
+
+
+
+
+
+
+
+

@@ -1,24 +1,4 @@
 Rails.application.routes.draw do
-  get 'tags/new'
-  get 'tags/create'
-  get 'tags/update'
-  get 'tags/edit'
-  get 'tags/destroy'
-  get 'tags/index'
-  get 'tags/show'
-  get 'events/new'
-  get 'events/create'
-  get 'events/update'
-  get 'events/edit'
-  get 'events/destroy'
-  get 'events/index'
-  get 'events/show'
-  get 'users/new'
-  get 'users/create'
-  get 'users/update'
-  get 'users/edit'
-  get 'users/destroy'
-  get 'users/index'
-  get 'users/show'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :events
 end
