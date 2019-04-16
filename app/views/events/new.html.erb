@@ -18,15 +18,19 @@
 <label>Set a date:</label><br>
 <%= f.date_field :time, as: :date, value: f.object.try(:strftime,"%d/%m/%Y"), class: 'form-control' %><br>
 
-<!-- <%= f.fields_for :imgs do |x| %>
+<%= f.fields_for :imgs do |x| %>
     <label>Insert a image URL:</label><br>
         <%= x.text_field :url %>
     <% end %>
-<br> -->
+<br>
 
 <%= f.fields_for :tags do |y| %>
     <label>Insert tags for your event:</label><br>
         <%= y.text_field :main_tag %>
+        <%= y.text_field :sub_tag_01 %>
+        <%= y.text_field :sub_tag_02 %>
+        <%= y.hidden_field :event_id, value: @event.id %>
+        <%= y.hidden_field :user_id, value: @current_user.id %>
     <% end %>
 <br>
 

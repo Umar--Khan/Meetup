@@ -1,15 +1,23 @@
 class EventsController < ApplicationController
   def new
-    byebug
+    # byebug
     # @user = User.find(params[:id])
-    @event = Event.new
-    # @event.imgs.build
-    @event.tags.build
+    if @current_user
+      @event = Event.new
+      @event.imgs.build
+      @event.tags.build
+      
+    else
+      flash[:notice] = "Please sign in to continue!"
+      redirect_to "/login"
+    end
+
   end
 
   def create
     @event = Event.create(event_params)
-    # byebug
+    @group = Group.create(user_id: @current_user.id, event_id: @event.id)
+    byebug
     redirect_to event_path(@event)
   end
 
@@ -44,8 +52,8 @@ class EventsController < ApplicationController
       :name, 
       :time, 
       :loc, 
-      # imgs_attributes: [:url],
-      tags_attributes: [:main_tag]
+      imgs_attributes: [:url],
+      tags_attributes: [:event_id, :user_id, :main_tag, :sub_tag_01, :sub_tag_02]
       )
   end
 end
