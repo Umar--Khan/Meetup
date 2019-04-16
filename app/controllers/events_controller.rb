@@ -1,18 +1,21 @@
 class EventsController < ApplicationController
   def new
+    byebug
+    # @user = User.find(params[:id])
     @event = Event.new
-    @event.imgs.build
+    # @event.imgs.build
+    @event.tags.build
   end
 
   def create
-    @event = Event.create(get_params)
-    byebug
+    @event = Event.create(event_params)
+    # byebug
     redirect_to event_path(@event)
   end
 
   def update
     @event = Event.find(params[:id])
-    @event.update(get_params)
+    @event.update(event_params)
     redirect_to event_path(@event)
   end
 
@@ -36,14 +39,14 @@ class EventsController < ApplicationController
 
   private
 
-  def get_params
+  def event_params
     params.require(:event).permit(
       :name, 
       :time, 
       :loc, 
-      imgs_attributes: [
-        :url
-      ])
+      # imgs_attributes: [:url],
+      tags_attributes: [:main_tag]
+      )
   end
 end
 

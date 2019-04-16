@@ -9,19 +9,27 @@
 <h1>New Event</h1>
 <%= form_for(@event) do |f| %>
 
-<label>Title of Event:</label><br>
-<%= f.text_field :name%><br>
+<label>Title of event:</label><br>
+<%= f.text_field :name %><br>
 
 <label>Location:</label><br>
-<%= f.text_field :loc%><br>
+<%= f.text_field :loc %><br>
 
-<label>Set a time:</label><br>
+<label>Set a date:</label><br>
 <%= f.date_field :time, as: :date, value: f.object.try(:strftime,"%d/%m/%Y"), class: 'form-control' %><br>
 
-<%= f.fields_for :imgs do |x| %>
-    <label>Main Tag:</label><br>
+<!-- <%= f.fields_for :imgs do |x| %>
+    <label>Insert a image URL:</label><br>
         <%= x.text_field :url %>
     <% end %>
+<br> -->
+
+<%= f.fields_for :tags do |y| %>
+    <label>Insert tags for your event:</label><br>
+        <%= y.text_field :main_tag %>
+    <% end %>
+<br>
+
 <%= f.submit %>
 <% end %>
 

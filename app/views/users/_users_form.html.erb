@@ -8,18 +8,22 @@
 <div>
    <%= form_for @user do |f| %>
    <div>
-      <%= f.label :name %>
+      <%= f.label 'Username:' %>
       <%= f.text_field :name %>
    </div>
    <div>
-      <%= f.label :email %>
+      <%= f.label 'Password:' %>
+      <%= f.text_field :password %>
+   </div>
+   <div>
+      <%= f.label 'Email:' %>
       <%= f.email_field :email %>
    </div>
    <div>
-      <%= f.label :dob %>
+      <%= f.label 'DOB' %>
       <%= f.number_field :dob %>
    <div>
-      <%= f.label :loc %>
+      <%= f.label 'City:' %>
       <%= f.text_field :loc %>
    </div>
       <%= f.submit 'save' %>
