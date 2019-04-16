@@ -3,4 +3,7 @@ Rails.application.routes.draw do
   resources :events
   resources :users, :tags
   root to: 'pages#home'
+  get "/login", to: "sessions#login"
+  post "/loggedin", to: "sessions#loggedin"
+  delete "/logout", to: 'sessions#logout'
 end

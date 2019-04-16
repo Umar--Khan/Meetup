@@ -7,11 +7,12 @@ class UsersController < ApplicationController
   def create
     user = User.new(get_params)
     if user.save
+      byebug
       redirect_to user_path user
     else
       flash[:errors] = user.errors.full_messages
       flash[:data] = user
-      redirect_to users_new
+      redirect_to new_user_path
     end
   end
 
@@ -47,7 +48,7 @@ class UsersController < ApplicationController
   private
 
   def get_params
-    params.require(:user).permit(:name, :email, :dob, :loc)
+    params.require(:user).permit(:name, :email, :dob, :loc, :password)
   end
 
 end
