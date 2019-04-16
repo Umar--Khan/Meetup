@@ -1,0 +1,27 @@
+<div>
+   <% if flash[:errors] %>
+      <% flash[:errors].each do |error| %>
+         <div><%= error %></div>
+      <% end %>
+   <% end %>
+</div>
+<div>
+   <%= form_for @user do |f| %>
+   <div>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+   </div>
+   <div>
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+   </div>
+   <div>
+      <%= f.label :dob %>
+      <%= f.number_field :dob %>
+   <div>
+      <%= f.label :loc %>
+      <%= f.text_field :loc %>
+   </div>
+      <%= f.submit 'save' %>
+   <% end %>
+</div>
