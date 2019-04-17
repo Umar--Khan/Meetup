@@ -11,13 +11,16 @@
 
   <body>
       <% if @current_user %>
-      <h7>User: <%= @current_user.name %></h7>
-      <%= button_to "Log out", {action: "logout", controller: "sessions"}, method: "delete" %>
-      
+      <h7>
+        Profile: <%= link_to @current_user.name, user_path(@current_user) %>
+        <% if session[:profile] %>
+          <%= link_to '!', "/users/#{@current_user.id}/edit" %>
+        <% end %>
+      </h7>
       <% else %>
-        <%= link_to "Login", "/login"%>
+        <%= render 'sessions/login_form'%>
       <% end %>
-  
+
       <%= yield %>
   </body>
 </html>

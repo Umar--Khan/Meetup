@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   resources :users, :tags
   root to: 'pages#home'
   get "/login", to: "sessions#login"
-  post "/loggedin", to: "sessions#loggedin"
+  post "/logged", to: "sessions#logged"
   delete "/logout", to: 'sessions#logout'
 end

@@ -1,24 +1,23 @@
-class SessionsController < ApplicationController 
+class SessionsController < ApplicationController
 
     def login
     end
-  
-    def loggedin
+
+    def logged
       user = User.find_by(name: params[:user][:name])
-      byebug
       if user && user.authenticate(params[:user][:password])
-  
+
         session[:user_id] = user.id
-  
-        redirect_to user_path(user)
+
+        redirect_to "/"
       else
-        flash[:notice] = "Wrong credentials! You dun goofed!"
-        redirect_to "/login"
+        flash[:notice] = "Wrong credentials!"
+        redirect_to "/users/new"
       end
     end
-  
+
     def logout
       session[:user_id] = nil
-      redirect_to "/login"
+      redirect_to '/'
     end
   end

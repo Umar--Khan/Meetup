@@ -2,24 +2,27 @@ class UsersController < ApplicationController
 
   def new
     flash[:data] ? @user = User.new(flash[:data]) : @user = User.new
+    @user.tags.build
   end
 
   def create
     user = User.new(get_params)
     if user.save
-      byebug
-      redirect_to user_path user
+      session[:user_id] = user.id
+      session[:profile] = 3
+      redirect_to user_path(user)
     else
       flash[:errors] = user.errors.full_messages
       flash[:data] = user
-      redirect_to new_user_path
+      redirect_to "/users/new"
     end
   end
 
   def destroy
     @user = User.find(params[:id])
     @user.delete
-    redirect_to users_path
+    session[:user_id] = nil
+    redirect_to '/'
   end
 
   def index
@@ -28,27 +31,40 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    
+    @tags = @user.tags
   end
 
   def edit
     @user = User.find(params[:id])
+    @user.tags.build
   end
 
   def update
     user = User.find(params[:id])
+    byebug
     if user.update(get_params)
-      redirect_to user_path user
+      redirect_to user_path(user)
     else
       flash[:errors] = user.errors.full_messages
-      redirect_to users_edit
+      redirect_to "/users/#{user.id}/edit"
     end
   end
 
   private
 
   def get_params
-    params.require(:user).permit(:name, :email, :dob, :loc, :password)
+    params.require(:user).permit(
+      :name,
+      :email,
+      :dob,
+      :loc,
+      :password,
+      tags_attributes: [
+        :main_tag,
+        :sub_tag_01,
+        :sub_tag_02,
+        :user_id,
+        :event_id])
   end
 
 end
