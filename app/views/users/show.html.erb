@@ -1,10 +1,25 @@
-<h1><%=@user.name%></h1>
-<h4><%=@user.email%></h4>
-<h4><%=@user.dob%></h4>
-<h4><%=@user.loc%></h4>
+<div>
+   <h1>Hey <%=@user.name%></h1>
+</div>
+
+<% if @user.email %>
+   <h4>email: <%=@user.email%></h4>
+<% end %>
+
+<% if @user.dob %>
+   <h4>dob: <%=@user.dob%></h4>
+<% end %>
+
+<% if @user.loc %>
+   <h4>city: <%=@user.loc%></h4>
+<% end %>
+
+<h2>Your tags</h2>
+<% @tags.each do |tag| %>
+<h4><%= link_to tag.main_tag, tag_path(tag) %></h4>
+<% end  %>
+<%= button_to "edit", {action: "edit", controller: "users"}, method: "get" %>
+<%= button_to "logout", {action: "logout", controller: "sessions"}, method: "delete" %>
+<%= button_to "delete", {action: "destroy", controller: "users"}, method: :delete %>
 <!-- <%= link_to 'users', users_path%> -->
-<%= link_to 'delete', user_path(@user), method: :delete %>
-<%= link_to 'edit', "#{user_path(@user)}/edit" %>
-
 <!-- <%= button_to 'Create a Event', new_event_path, {method: :get, data: @user.id} %> -->
-

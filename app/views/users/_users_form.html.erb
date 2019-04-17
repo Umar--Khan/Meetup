@@ -8,24 +8,41 @@
 <div>
    <%= form_for @user do |f| %>
    <div>
-      <%= f.label 'Username:' %>
+      <%= f.label :name, 'User name:' %>
       <%= f.text_field :name %>
    </div>
    <div>
       <%= f.label 'Password:' %>
-      <%= f.text_field :password %>
+      <%= f.password_field :password %>
    </div>
+
+      <% if @current_user %>
+      <div>
+         <%= f.label 'Email:' %>
+         <%= f.email_field :email %>
+      </div>
+      <div>
+         <%= f.label 'DOB' %>
+         <%= f.number_field :dob %>
+      <div>
+         <%= f.label 'City:' %>
+         <%= f.text_field :loc %>
+      </div>
+      <% end %>
+
+   <% if !@current_user %>
    <div>
-      <%= f.label 'Email:' %>
-      <%= f.email_field :email %>
+      <%= f.fields_for :tags do |t| %>
+      <div>
+         <%= t.label :main_tag, 'Tag your interests' %>
+         <%= t.text_field :main_tag %>
+      </div>
+         <%= t.hidden_field :event_id, value: nil %>
+         <%= t.hidden_field :user_id, value: @user.id %>
+      <% end %>
    </div>
-   <div>
-      <%= f.label 'DOB' %>
-      <%= f.number_field :dob %>
-   <div>
-      <%= f.label 'City:' %>
-      <%= f.text_field :loc %>
-   </div>
-      <%= f.submit 'save' %>
+   <% end %>
+
+   <%= f.submit 'Submit' %>
    <% end %>
 </div>
