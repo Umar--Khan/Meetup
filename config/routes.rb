@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   post "/logged", to: "sessions#logged"
   delete "/logout", to: 'sessions#logout'
   post '/events/:id/attend', to: 'events#attend', as: "events_attend"
+  post '/messages/:id'
 end

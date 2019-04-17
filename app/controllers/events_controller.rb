@@ -13,7 +13,6 @@ class EventsController < ApplicationController
 
   def create
     @event  = Event.new(event_params)
-    @message = Message.create(event_id: @event.id, title: @event.name)
     if @event.save
       redirect_to event_path(@event)
     else
@@ -51,7 +50,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @imgs = Img.find_by(event_id: @event.id)
     @groups = Group.find_by(event_id: @event.id)
-    @messages = Message.find_by(event_id: @event.id)
+    @message = Message.create(event_id: @event.id, title: @event.name, content: @event.name)
   end
 
   def attend
@@ -61,7 +60,6 @@ class EventsController < ApplicationController
       redirect_to event_path(@event)
     else
       flash[:errors] = @group.errors.full_messages
-      byebug
     end
   end
 
