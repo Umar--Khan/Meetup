@@ -9,10 +9,8 @@
 <br>
 
 <% if @current_user%>
-  <%= form_for(@message), url: '' do |f|%>
-    <%= f.label 'Add Message'%>
-    <%= f.text_field :content%>
-    <%= f.submit "Message"%>
-  <% end%>
+  <%= form_for @message, url: content_path(@message) do |f| %>
+    <%= f.text_field :content %>
+    <%= f.submit 'Send Message' %>
+  <% end %>
 <% end  %>
-

@@ -28,8 +28,6 @@
     <h4>You've missed the window to attend.</h4>
 <% end %>
 
-<% byebug %>
-
 <%= link_to 'Image', img_path(@imgs.id) %>
 <%= link_to 'Group messages', "/messages/#{@message.id}" %>
 <%= link_to 'Edit Event', edit_event_path(@event) %>
