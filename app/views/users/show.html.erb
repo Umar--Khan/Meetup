@@ -1,25 +1,44 @@
 <div>
-   <h1>Hey <%=@user.name%></h1>
+   <h1> <%=@user.name%></h1>
+</div>
+<%if @wner %>
+   <% if @user.email != nil && @user.email != ""  %>
+      <h4>email: <%=@user.email%></h4>
+   <% end %>
+
+   <% if @user.dob != nil && @user.dob != "" %>
+      <h4>dob: <%=@user.dob%></h4>
+   <% end %>
+
+   <% if @user.loc != nil && @user.loc != ""%>
+      <h4>city: <%=@user.loc%></h4>
+   <% end %>
+<%end%>
+
+<div>
+   <h2>Your tags</h2>
+   <% @tags.each do |tag| %>
+      <h4><%= link_to tag.main_tag, tag_path(tag) %></h4>
+   <% end  %>
 </div>
 
-<% if @user.email %>
-   <h4>email: <%=@user.email%></h4>
+ <h2>Your events</h2>
+<%if @events.empty?%> 
+<div>
+   <p>No events just yet. <%= link_to 'Wanna tag more interests?', new_tag_path %></p>
+</div>
+<%else%>
+<div>
+   <% @events.each do |event| %>
+      <h4><%= link_to event.name, event_path(event) %></h4>
+   <% end %>
+</div>
 <% end %>
 
-<% if @user.dob %>
-   <h4>dob: <%=@user.dob%></h4>
-<% end %>
-
-<% if @user.loc %>
-   <h4>city: <%=@user.loc%></h4>
-<% end %>
-
-<h2>Your tags</h2>
-<% @tags.each do |tag| %>
-<h4><%= link_to tag.main_tag, tag_path(tag) %></h4>
-<% end  %>
+<%if @wner %>
 <%= button_to "edit", {action: "edit", controller: "users"}, method: "get" %>
 <%= button_to "logout", {action: "logout", controller: "sessions"}, method: "delete" %>
 <%= button_to "delete", {action: "destroy", controller: "users"}, method: :delete %>
+<% end %>
 <!-- <%= link_to 'users', users_path%> -->
 <!-- <%= button_to 'Create a Event', new_event_path, {method: :get, data: @user.id} %> -->

@@ -33,6 +33,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @tags = @user.tags
+    if @current_user
+      @wner = @current_user.name == @user.name
+    end 
+    @events = @user.events
   end
 
   def edit

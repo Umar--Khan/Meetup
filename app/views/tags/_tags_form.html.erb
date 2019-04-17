@@ -8,17 +8,9 @@
 <div>
    <%= form_for @tag do |f| %>
    <div>
-      <%= f.label :main_tag %>
+      <%= f.label :main_tag, 'Tag' %>
       <%= f.text_field :main_tag %>
    </div>
-   <div>
-      <%= f.label :sub_tag_01 %>
-      <%= f.text_field :sub_tag_01 %>
-   </div>
-   <div>
-      <%= f.label :sub_tag_02 %>
-      <%= f.text_field :sub_tag_02 %>
-   </div>
-      <%= f.submit 'save' %>
+      <%= f.submit 'Done' %>
    <% end %>
 </div>

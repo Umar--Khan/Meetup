@@ -1,5 +1,12 @@
-<h1>Tags#show</h1>
-<h4><%=@tag.main_tag%></h4>
+<h1><%=@tag.main_tag%></h1>
+<h4>Sharing your interest:</h4>
+<div>
+   <% @users.each do |user| %>
+   <ul><li> 
+      <%= link_to user.name, user_path(user) %>
+   </li></ul>
+   <% end %>
+</div>
 <%= link_to 'tags', tags_path%>
 <%= link_to 'delete', tag_path(@tag), method: :delete %>
 <%= link_to 'edit', "#{tag_path(@tag)}/edit" %>
