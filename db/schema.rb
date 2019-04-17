@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_16_212515) do
+ActiveRecord::Schema.define(version: 2019_04_17_085633) do
 
   create_table "events", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,11 @@ ActiveRecord::Schema.define(version: 2019_04_16_212515) do
     t.string "loc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "eventtags", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "tag_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -58,14 +63,8 @@ ActiveRecord::Schema.define(version: 2019_04_16_212515) do
 
   create_table "tags", force: :cascade do |t|
     t.string "main_tag"
-    t.string "sub_tag_01"
-    t.string "sub_tag_02"
-    t.integer "event_id"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_tags_on_event_id"
-    t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -77,6 +76,11 @@ ActiveRecord::Schema.define(version: 2019_04_16_212515) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "password_digest"
+  end
+
+  create_table "usertags", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "tag_id"
   end
 
 end
