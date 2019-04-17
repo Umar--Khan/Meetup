@@ -28,18 +28,14 @@
 <br>
 <%= f.fields_for :groups do |y| %>
     <label>Max number of people for event:</label>
-        <%= y.number_field :number %>
+        <%= y.number_field :number, min: 2, max: 9 %>
         <%= y.hidden_field :event_id, value: @event.id %>
         <%= y.hidden_field :user_id, value: @current_user.id %>
     <% end %>
 <br>
 <%= f.fields_for :tags do |y| %>
-    <label>Insert tags for your event:</label>
+    <label>Insert tag for your event:</label>
         <%= y.text_field :main_tag %>
-        <%= y.text_field :sub_tag_01 %>
-        <%= y.text_field :sub_tag_02 %>
-        <%= y.hidden_field :event_id, value: @event.id %>
-        <%= y.hidden_field :user_id, value: @current_user.id %>
     <% end %>
 <br>
 <%= f.submit %>
