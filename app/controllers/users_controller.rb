@@ -59,12 +59,7 @@ class UsersController < ApplicationController
       :dob,
       :loc,
       :password,
-      tags_attributes: [
-        :main_tag,
-        :sub_tag_01,
-        :sub_tag_02,
-        :user_id,
-        :event_id])
+      tags_attributes: [:main_tag])
   end
 
 end

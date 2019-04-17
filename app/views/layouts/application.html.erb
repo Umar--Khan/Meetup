@@ -15,11 +15,12 @@
         Profile: <%= link_to @current_user.name, user_path(@current_user) %>
         <% if session[:profile] %>
           <%= link_to '!', "/users/#{@current_user.id}/edit" %>
-        <% end %>
+         <% end %>
       </h7>
-      <% else %>
-        <%= render 'sessions/login_form'%>
+      <% elsif request.fullpath != "/users/new" %>
+          <%= render 'sessions/login_form'%>
       <% end %>
+
 
       <%= yield %>
   </body>
