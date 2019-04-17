@@ -12,9 +12,15 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.create(event_params)
+    @event  = Event.new(event_params)
     @message = Message.create(event_id: @event.id, title: @event.name)
-    redirect_to event_path(@event)
+    if @event.save
+      redirect_to event_path(@event)
+    else
+      flash[:errors] = @event.errors.full_messages
+      flash[:data] = @event
+      redirect_to "/events/new"
+    end
   end
 
   def update
@@ -48,6 +54,17 @@ class EventsController < ApplicationController
     @messages = Message.find_by(event_id: @event.id)
   end
 
+  def attend
+    @event = Event.find(params[:id])
+    @group = Group.new(user_id: @current_user.id, event_id: @event.id, number: 0) 
+    if @group.save  
+      redirect_to event_path(@event)
+    else
+      flash[:errors] = @group.errors.full_messages
+      byebug
+    end
+  end
+
   private
 
   def event_params
@@ -56,7 +73,7 @@ class EventsController < ApplicationController
       :time, 
       :loc, 
       imgs_attributes: [:url],
-      tags_attributes: [:event_id, :user_id, :main_tag, :sub_tag_01, :sub_tag_02],
+      tags_attributes: [:main_tag],
       groups_attributes: [:event_id, :user_id, :number]
       )
   end

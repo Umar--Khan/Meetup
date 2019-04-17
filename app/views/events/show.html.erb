@@ -1,20 +1,35 @@
 <h1><%=@event.name%></h1>
 
-<h4>Owner of MeetUp: <%= link_to @groups.user.name, user_path(@groups) %></h4>
+<h4>
+    MeetUp Attendees:
+    <% @event.users.each do |user| %>
+        <%= link_to user.name, user_path(user.id) %>
+    <% end %>
+</h4>
 
-<h4>Event Date: <%=@event.time.strftime('%B %d, %Y at %H:%M')%></h4>
-<h4>Event Location: <%=@event.loc%></h4>
-<h4>Max People: <%=@groups.number%></h4>
-<h4>Tags: <%=@groups.number%></h4>
+<h4>Event Date: <%= @event.time.strftime('%B %d, %Y at %H:%M') %></h4>
+<h4>Event Location: <%= @event.loc %></h4>
+<h4>Max People: <%= @groups.number %></h4>
+<h4>People Attending: <%= @event.users.count %></h4>
+
+<% if flash[:errors] %>
+<ul>
+    <% flash[:errors].each do |error| %>
+    <li>Error: <%= error %></li>
+    <% end %>
+</ul>
+<% end %>
+
+<% if @event.users.include?(@current_user) %>
+        <h4>You're attending this event.</h4>
+    <% elsif @groups.number > @event.users.count %>
+        <%= link_to 'Attend Event', events_attend_path(@event), method: :post %>
+    <% else %>
+    <h4>You've missed the window to attend.</h4>
+<% end %>
 
 
-
-
-<h4><%= link_to 'Image', @imgs.url %></h4>
-<h4><%= link_to 'Group messages', message_path(@messages) %></h4>
-
+<%= link_to 'Image', img_path(@imgs.id) %>
+<%= link_to 'Group messages', message_path(@messages) %>
 <%= link_to 'Edit Event', edit_event_path(@event) %>
 <%= link_to 'Delete Event', event_path(@event), method: :delete %>
-
-
-

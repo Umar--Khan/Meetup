@@ -15,21 +15,31 @@ Eventtag.destroy_all
 Group.destroy_all
 
 
+User.create(name: "test", email: Faker::Name.first_name + "@gmail.com", dob: rand(1..1000), loc: Faker::Address.state, admin: [true, false].sample, password: "pass")
 
-5.times do
-User.create(name: Faker::Name.name, email: Faker::Name.first_name + "@gmail.com", dob: rand(1..1000), loc: Faker::Address.state, admin: [true, false].sample, password: Faker::Name.name)
+4.times do
+User.create(name: Faker::Name.name, email: Faker::Name.first_name + "@gmail.com", dob: rand(1..1000), loc: Faker::Address.state, admin: [true, false].sample, password: "pass")
 end
 
 5.times do
-    Event.create(name: Faker::TvShows::GameOfThrones.house, time: rand(1..100), loc: Faker::Address.city)
+    Event.create(name: Faker::TvShows::GameOfThrones.house, time: Time.new(2002, 10, 31, 2, 2, 2), loc: Faker::Address.city)
 end
 
 5.times do
     Tag.create(main_tag: Faker::Food.dish)
 end
 
+
+Img.create(url: Faker::Food.dish, event_id: 1)
+Img.create(url: Faker::Food.dish, event_id: 2)
+Img.create(url: Faker::Food.dish, event_id: 3)
+Img.create(url: Faker::Food.dish, event_id: 4)
+Img.create(url: Faker::Food.dish, event_id: 5)
+
+
+
 5.times do
-    Group.create(event_id: rand(1..5), user_id: rand(1..5), number: rand(1..10))
+    Group.create(event_id: rand(1..5), user_id: rand(2..5), number: rand(1..10))
 end
 
 5.times do
@@ -39,3 +49,9 @@ end
 5.times do
     Eventtag.create(event_id: rand(1..5), tag_id: rand(1..5))
 end
+
+Message.create(content: Faker::Food.dish, event_id: 1)
+Message.create(content: Faker::Food.dish, event_id: 2)
+Message.create(content: Faker::Food.dish, event_id: 3)
+Message.create(content: Faker::Food.dish, event_id: 4)
+Message.create(content: Faker::Food.dish, event_id: 5)

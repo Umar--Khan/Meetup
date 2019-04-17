@@ -5,5 +5,7 @@ class Tag < ApplicationRecord
 
     has_many :eventtags
     has_many :users, through: :usertags
+
+    validates :main_tag, presence: true, uniqueness: true
 end
 
