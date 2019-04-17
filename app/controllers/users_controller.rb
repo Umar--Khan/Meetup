@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     user = User.new(get_params)
     if user.save
       session[:user_id] = user.id
-      session[:profile] = 3
+      session[:profile] = %w(email dob loc)
       redirect_to user_path(user)
     else
       flash[:errors] = user.errors.full_messages
@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    Usertag.where(user_id: "#{@user.id}").delete_all
     @user.delete
     session[:user_id] = nil
     redirect_to '/'
@@ -41,8 +42,22 @@ class UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    byebug
     if user.update(get_params)
+      if user.email == nil || user.email == ""
+        session[:profile].delete('email')
+      else
+        session[:profile] << 'email' unless session[:profile].include?('email')
+      end
+      if user.dob == nil || user.dob == ""
+        session[:profile].delete('dob')
+      else
+        session[:profile] << 'dob' unless session[:profile].include?('dob')
+      end
+      if user.loc == nil || user.loc == ""
+        session[:profile].delete('loc')
+      else
+        session[:profile] << 'loc' unless session[:profile].include?('loc')
+      end
       redirect_to user_path(user)
     else
       flash[:errors] = user.errors.full_messages

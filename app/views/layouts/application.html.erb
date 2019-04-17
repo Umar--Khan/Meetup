@@ -13,7 +13,7 @@
       <% if @current_user %>
       <h7>
         Profile: <%= link_to @current_user.name, user_path(@current_user) %>
-        <% if session[:profile] %>
+        <% if session[:profile].count < 3 %>
           <%= link_to '!', "/users/#{@current_user.id}/edit" %>
          <% end %>
       </h7>
