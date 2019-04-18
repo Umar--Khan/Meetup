@@ -1,36 +1,51 @@
-<h1><%=@event.name%></h1>
-
-<h4>
-    MeetUp Attendees:
-    <% @event.users.each do |user| %>
-        <%= link_to user.name, user_path(user.id) %>
-    <% end %>
-</h4>
-
-<h4>Event Date: <%= @event.time.strftime('%B %d, %Y at %H:%M') %></h4>
-<h4>City: <%= @event.loc %></h4>
-<h4>Max People: <%= @groups.number %></h4>
-<h4>People Attending: <%= @event.users.count %></h4>
-
-<% if flash[:errors] %>
-<ul>
-    <% flash[:errors].each do |error| %>
-    <li>Error: <%= error %></li>
-    <% end %>
-</ul>
-<% end %>
-
-<% if @event.users.include?(@current_user) %>
-        <h4>You're attending this event.</h4>
-    <% elsif @groups.number > @event.users.count %>
-        <%= link_to 'Attend Event', events_attend_path(@event), method: :post %>
-    <% else %>
-    <h4>You've missed the window to attend.</h4>
-<% end %>
 <br>
+<div class="ui three column divided grid">
+        <div class="stretched row">
+          <div class="column">
+            <div class="ui segment">
+                <h2><%=@event.name%></h2>
+                <h4>
+                    MeetUp Attendees:
+                    <% @event.users.each do |user| %>
+                        <br>
+                        <%= link_to user.name, user_path(user.id) %>
+                        <br>
+                    <% end %>
+                </h4>
+            </div>
+          </div>
+          <div class="column">
+            <div class="ui segment">
+                <h2><%= @event.time.strftime('%B %d, %Y at %H:%M') %></h2>
+            </div>
+            <div class="ui segment">
+                <h2> City: <%= @event.loc %> </h2>              
+            </div>
+          </div>
+          <div class="column">
+            <div class="ui segment">
+                <p>Max People: <%= @groups.number %></p>
+            </div>
+            <div class="ui segment">
+                <p>People Attending: <%= @event.users.count %></p>  
+            </div>            
+            <div class="ui segment">
+                <% if @event.users.include?(@current_user) %>
+                    <h4>You're attending this MeetUp</h4>
+                <% elsif @groups.number > @event.users.count %>
+                    <%= link_to 'Attend Event', events_attend_path(@event), method: :post %>
+                <% else %>
+                    <h4>You've missed the window to MeetUp</h4>
+                <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <br>
+<br>
+
 
 <%= link_to 'Google Location', place_path(@places) %> |
 <%= link_to 'Group messages', message_path(@message)%> |
-<%= link_to 'Edit Event', edit_event_path(@event) %> |
-
-<%= link_to 'Delete Event', event_path(@event), method: :delete %>
+<%= link_to 'Edit MeetUp', edit_event_path(@event) %> |
+<%= link_to 'Delete MeetUp', event_path(@event), method: :delete %>

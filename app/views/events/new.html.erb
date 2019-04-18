@@ -1,72 +1,96 @@
-<% if flash[:errors] %>
-<ul>
-    <% flash[:errors].each do |error| %>
-    <li>Error: <%= error %></li>
-    <% end %>
-</ul>
-<% end %>
-
-<h1>New Event</h1>
-<%= form_for(@event) do |f| %>
-
-Title of event:
-<%= f.text_field :name %>
-<br>
-<br>
-
-<label>City:</label>
-<%= f.text_field :loc %>
-<br>
-<br>
-
-<label>Set a date and time for MeetUp:</label>
-<%= f.datetime_select(:time, selected: Date.today, start_year: Date.today.year) %>
-<br>
-<br>
-
-<%= f.fields_for :groups do |x| %>
-    Max number of people for event:
-        <%= x.number_field :number, min: 2, max: 9 %>
-        <%= x.hidden_field :event_id, value: @event.id %>
-        <%= x.hidden_field :user_id, value: @current_user.id %>
-    <% end %>
-<br>
-<br>
-
-<%= f.fields_for :messages do |a| %>
-<%= a.hidden_field :event_id, value: @event.id %>
-<%= a.hidden_field :title, value: @event.name %>
-<%= a.hidden_field :content, value: @event.name %>
-<% end %>
-
-<%= f.fields_for :tags do |y| %>
-    Insert tag for your event:
-        <%= y.text_field :main_tag %>
-    <% end %>
-<br>
-
-<%= f.fields_for :places do |z| %>
-    <h3>GoogleMap Details </h3>
-
-    <%= z.label 'Location Name:' %>
-    <%= z.text_field :name %>
-
-    <%= z.label :longitude %>
-    <%= z.text_field :latitude %>
-
-    <%= z.label :longitude %>
-    <%= z.text_field :longitude %>
-
-    <%= z.hidden_field :event_id, value: @event.id %>
-
-<% end %>
-<br>
-<%= f.submit %>
-<% end %>
 
 
+<div class="ui internally grid">
+    <div class="row">
+        <div class="three wide column">
+            <% if flash[:errors] %>
+            <ul>
+                <% flash[:errors].each do |error| %>
+                <li>Error: <%= error %></li>
+                <% end %>
+            </ul>
+            <% end %>
+        </div>
+        <div class="ten wide column">
+            <div class="ui one column stackable center aligned page grid">
+                <div class="column twelve wide">
+                    <h1>New MeetUp</h1>
+                </div>
+            </div>
+        </div>
+        <div class="three wide column">
+            <img>
+        </div>
+    </div>
+    <div class="row">
+        <div class="three wide column">
+            <img>
+        </div>
+        <div class="ten wide column">
+            <%= form_for @event, :html => {class: "ui form"} do |f|%>
+                <%= f.fields_for :messages do |a| %>
+                <%= a.hidden_field :event_id, value: @event.id %>
+                <%= a.hidden_field :title, value: @event.name %>
+                <%= a.hidden_field :content, value: @event.name %>
+                <% end %>
+                <div class="field">
+                    <label>Name for MeetUp:</label>
+                    <%= f.text_field :name,  placeholder: "Name" %>
+                </div>
+                <div class="field">
+                    <label>City:</label>
+                    <%= f.text_field :loc,  placeholder: "City" %>
+                </div>
+                <div class="field">
+                    <%= f.fields_for :groups do |x| %>
+                        <label>Max number of people for event:</label>
+                        <%= x.number_field :number, min: 2, max: 9 %>
+                        <%= x.hidden_field :event_id, value: @event.id %>
+                        <%= x.hidden_field :user_id, value: @current_user.id %>
+                    <% end %>
+                </div>
+                <div class="field">
+                    <%= f.fields_for :tags do |y| %>
+                    <label>Insert tag for your event:</label>
+                    <%= y.text_field :main_tag %>
+                    <% end %>
+                </div>
+                <div class="field">
+                    <label>Set a date and time for MeetUp:</label>
+                    <%= f.datetime_select(:time, selected: Date.today, start_year: Date.today.year) %>
+                </div>
+                <div class="field">
+                    <%= f.fields_for :places do |z| %>
+                    <div class="ui one column stackable center aligned page grid">
+                        <div class="column twelve wide">
+                            <h3>GoogleMap Details </h3>
+                        </div>
+                    </div>
+                    <%= z.label 'Location Name:' %>
+                    <%= z.text_field :name %>
 
+                    <%= z.label :latitude %>
+                    <%= z.text_field :latitude %>
 
+                    <%= z.label :longitude %>
+                    <%= z.text_field :longitude %>
 
+                    <%= z.hidden_field :event_id, value: @event.id %>
 
+                    <% end %>
+                </div>
 
+                <br>
+                <div class="ui one column stackable center aligned page grid">
+                    <div class="column twelve wide">
+                        <button class="ui button" type="submit">Submit</button>
+                    </div>
+                </div>
+                <% end %>
+            </form>
+        </div>
+        <div class="three wide column">
+            <img>
+        </div>
+    </div>
+</div>
