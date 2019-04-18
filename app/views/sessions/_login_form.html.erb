@@ -2,12 +2,22 @@
 
   <%= flash[:notice] if flash[:notice] %>
 
-  <%= f.label :name, 'User'%>
-  <%= f.text_field :name%>
-  <%= f.label :password%>
-  <%= f.password_field :password%>
-  <%= f.submit "Log in"%>
-
-  <%= link_to "New user", "users/new" %>
+  <div class="ui very large form">
+  <div class="two fields">
+    <div class="field">
+      <%= f.label :name, 'User'%>
+      <%= f.text_field :name%>
+    </div>
+    <div class="field">
+      <%= f.label :password%>
+      <%= f.password_field :password%>
+    </div>
+  </div>
+  <div >
+    <%= f.submit "Log In", class:"ui submit button" %>
+  </div>
+</div>
 
 <% end%>
+
+

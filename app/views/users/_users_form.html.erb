@@ -5,43 +5,50 @@
       <% end %>
    <% end %>
 </div>
-<div>
-   <%= form_for @user do |f| %>
-   <div>
-      <%= f.label :name, 'User name:' %>
-      <%= f.text_field :name %>
-   </div>
-   <div>
-      <%= f.label 'Password:' %>
-      <%= f.password_field :password %>
-   </div>
+
+
+
+<%= form_for @user do |f| %>
+<div class="ui very large form">
+   <div class="six fields">
+
+      <div class="field">
+         <%= f.label :name, 'User'%>
+         <%= f.text_field :name%>
+      </div>
+      <div class="field">
+         <%= f.label 'Password:' %>
+         <%= f.password_field :password %>
+      </div>
 
       <% if @current_user %>
-      <div>
-         <%= f.label 'Email:' %>
-         <%= f.email_field :email %>
-      </div>
-      <div>
-         <%= f.label 'DOB' %>
-         <%= f.number_field :dob %>
-      <div>
-         <%= f.label 'City:' %>
-         <%= f.text_field :loc %>
-      </div>
+         <div class="field">
+            <%= f.label 'Email:' %>
+            <%= f.email_field :email %>
+         </div>
+         <div class="field">
+            <%= f.label 'DOB' %>
+            <%= f.number_field :dob %>
+         </div>
+         <div class="field">
+            <%= f.label 'City:' %>
+            <%= f.text_field :loc %>
+         </div>
       <% end %>
 
-   <% if !@current_user %>
-   <div>
-      <%= f.fields_for :tags do |t| %>
-      <div>
-         <%= t.label :main_tag, 'Tag your interests' %>
-         <%= t.text_field :main_tag %>
-      </div>
-         <%= t.hidden_field :user_id, value: @user.id %>
+      <% if !@current_user %>
+         <%= f.fields_for :tags do |t| %>
+            <div class="field">
+               <%= t.label :main_tag, 'Tag your interests' %>
+               <%= t.text_field :main_tag %>
+            </div>
+            <%= t.hidden_field :user_id, value: @user.id %>
+         <% end %>
       <% end %>
+
+   <%= f.submit 'Submit', class:"ui submit button" %>
    </div>
-   <% end %>
-
-   <%= f.submit 'Submit' %>
-   <% end %>
 </div>
+<% end %>
+
+

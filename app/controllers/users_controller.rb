@@ -34,8 +34,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @tags = @user.tags
     if @current_user
-      @wner = @current_user.name == @user.name
-    end 
+      @current_user.name == @user.name ? @wner = true : @wner = false
+    else
+      @wner = false
+    end
     @events = @user.events
   end
 

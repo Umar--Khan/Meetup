@@ -11,17 +11,32 @@
   </head>
 
   <body>
-      <% if @current_user %>
-      <div><h5>
-          Profile: <%= link_to @current_user.name, user_path(@current_user) %>
-        <% if session[:profile].count < 3 %>
-          <%= link_to '!!', "/users/#{@current_user.id}/edit" %>
-         <% end %>
-         <%= link_to 'new event', new_event_path %>
-      </h5></div>
-      <% elsif request.fullpath != "/users/new" %>
-          <%= render 'sessions/login_form'%>
-      <% end %>
+
+      <div class="ui secondary  menu">
+        <%= @current_user ?
+          link_to('MeetUp', new_event_path, {class:"active item"}) :
+          link_to('MeetUp', '/', {class:"active item"})
+        %>
+        <% if @current_user %>
+          <% if session[:profile].count < 3 %>
+            <%= link_to '!!', edit_user_path(@current_user), {class:"item"} %>
+          <% end %>
+          <%= link_to @current_user.name, user_path(@current_user), {class:"item"} %>
+        <% elsif request.fullpath != "/users/new" %>
+          <%= link_to 'New User', 'sessions/login_form', {class:"item"} %>
+        <% end %>
+        <div class="right menu">
+          <div class="item">
+            <div class="ui icon input">
+              <input type="text" placeholder="Search...">
+              <i class="search link icon"></i>
+            </div>
+          </div>
+          <%= link_to 'Logout', '/logout', {method: :delete, class:"ui item"} %>
+        </div>
+      </div>
+
+
       <%= yield %>
   </body>
 </html>
