@@ -44,8 +44,10 @@
     <br>
 <br>
 
-
-<%= link_to 'Google Location', place_path(@places) %> |
-<%= link_to 'Group messages', message_path(@message)%> |
-<%= link_to 'Edit MeetUp', edit_event_path(@event) %> |
-<%= link_to 'Delete MeetUp', event_path(@event), method: :delete %>
+<% begin %>
+    <%= link_to 'Google Location', place_path(@places) %> |
+    <%= link_to 'Group messages', message_path(@message)%> |
+    <%= link_to 'Edit MeetUp', edit_event_path(@event) %> |
+    <%= link_to 'Delete MeetUp', event_path(@event), method: :delete %>
+<% rescue %>
+<% end %>
