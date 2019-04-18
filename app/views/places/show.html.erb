@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Event: <%= @place.event.name%></h2>
+
+
+<p>
+  <strong>Location Name:</strong>
+  <%= @place.name %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @place.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @place.longitude %>
+</p>
+
+<p>
+  <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&markers=size:small%7Ccolor:red%7C#{@place.latitude},#{@place.longitude}&key=#{Rails.application.credentials.google_maps_api_key}", alt: "Map" %>
+</p>
+
+<%= link_to 'Edit', edit_place_path(@place) %> |
+<%= link_to 'Event Page', event_path(@place.event_id) %>

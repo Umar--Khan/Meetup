@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  resources :places, only: [:show, :edit]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :events
-  resources :messages
+  resources :messages, only: [:show]
   resources :imgs, only: [:show]
   resources :users, :tags
   root to: 'pages#home'
