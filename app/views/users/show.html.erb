@@ -22,10 +22,10 @@
    <% end  %>
 </div>
 
- <h2>Your events</h2>
-<%if @events.empty?%> 
+ <h2>You're going</h2>
+<%if @events.empty?%>
 <div>
-   <p>No events just yet. <%= link_to 'Wanna tag more interests?', new_tag_path %></p>
+   <p>No events, wanna<%= link_to ' tag ', new_tag_path %>more interests?</p>
 </div>
 <%else%>
 <div>
@@ -36,9 +36,27 @@
 <% end %>
 
 <%if @wner %>
-<%= button_to "edit", {action: "edit", controller: "users"}, method: "get" %>
-<%= button_to "logout", {action: "logout", controller: "sessions"}, method: "delete" %>
-<%= button_to "delete", {action: "destroy", controller: "users"}, method: :delete %>
+<h2>Events nearby</h2>
+   <%begin%>
+      <%Event.all.each do |event|%>
+         <%if event.loc.downcase.include?(@user.loc.downcase)%>
+            <% unless @events.map(&:name).include?(event.name)%>
+               <%=link_to event.name, event_path(event)%>
+            <%end%>
+         <%end%>
+      <%end%>
+   <%rescue StandardError => e%>
+      <p>Add your <%= link_to "location", edit_user_path %> to find some</p>
+   <%end%>
+<% end %>
+
+<%if @wner %>
+   <div>
+      <h2>Console</h2>
+      <%= button_to "edit", {action: "edit", controller: "users"}, method: "get" %>
+      <%= button_to "logout", {action: "logout", controller: "sessions"}, method: "delete" %>
+      <%= button_to "delete", {action: "destroy", controller: "users"}, method: :delete %>
+   </div>
 <% end %>
 <!-- <%= link_to 'users', users_path%> -->
 <!-- <%= button_to 'Create a Event', new_event_path, {method: :get, data: @user.id} %> -->

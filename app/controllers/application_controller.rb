@@ -7,4 +7,19 @@ class ApplicationController < ActionController::Base
         end
     end
 
+    def can_rate
+        if events = @current_user.events
+            events.each do |event|
+                if event.time > DateTime.now
+                    event.users.each do |user|
+                        unless Rating.find(user_id: user.id, event_id: event.id)
+                            return true
+                        end
+                    end
+                end
+            end
+        end
+        return false
+    end
+
 end
