@@ -23,7 +23,7 @@
           <% end %>
           <%= link_to @current_user.name, user_path(@current_user), {class:"item"} %>
         <% elsif request.fullpath != "/users/new" %>
-          <%= link_to 'New User', 'sessions/login_form', {class:"item"} %>
+          <%= link_to 'New User', '/users/new', {class:"item"} %>
         <% end %>
         <div class="right menu">
           <div class="item">
