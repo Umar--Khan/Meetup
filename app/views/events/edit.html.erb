@@ -6,31 +6,31 @@
 </ul>
 <% end %>
 
-<h1>Edit Event</h1>
+<h1>Edit MeetUp</h1>
 <%= form_for(@event) do |f| %>
 
-<label>Title of event:</label>
+<label>Name:</label>
 <%= f.text_field :name %>
 <br>
 
-<label>Location:</label>
+<label>City:</label>
 <%= f.text_field :loc %>
 <br>
 
-<label>Set a date and time for MeetUp:</label>
+<label>Date and time for MeetUp:</label>
 <%= f.datetime_select(:time, selected: Date.today, start_year: Date.today.year) %>
 <br>
 
-<%= f.fields_for :imgs do |x| %>
-    <label>Insert a image URL:</label>
-        <%= x.text_field :url %>
-    <% end %>
-<br>
 <%= f.fields_for :groups do |y| %>
     <label>Max number of people for event:</label>
         <%= y.number_field :number, min: 2, max: 9 %>
         <%= y.hidden_field :event_id, value: @event.id %>
         <%= y.hidden_field :user_id, value: @current_user.id %>
+    <% end %>
+<br>
+<%= f.fields_for :tags do |y| %>
+    <label>Edit Tag:</label>
+        <%= y.text_field :main_tag %>
     <% end %>
 <br>
 <%= f.submit %>

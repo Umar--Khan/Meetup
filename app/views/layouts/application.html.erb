@@ -11,6 +11,7 @@
   </head>
 
   <body>
+
       <div class="ui secondary  menu">
         <%= @current_user ?
           link_to('MeetUp', new_event_path, {class:"active item"}) :
@@ -34,9 +35,6 @@
           <%= link_to 'Logout', '/logout', {method: :delete, class:"ui item"} %>
         </div>
       </div>
-
-
-
 
 
       <%= yield %>

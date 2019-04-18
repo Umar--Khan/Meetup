@@ -2,9 +2,10 @@ class EventsController < ApplicationController
   def new
     if @current_user
       @event = Event.new
-      @event.imgs.build
       @event.tags.build
       @event.groups.build
+      @event.messages.build
+      @event.places.build
     else
       flash[:notice] = "Please sign in to continue!"
       redirect_to "/login"
@@ -12,7 +13,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event  = Event.new(event_params)
+    @event = Event.new(event_params)
     if @event.save
       redirect_to event_path(@event)
     else
@@ -39,7 +40,7 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     @event.destroy
-    redirect_to events_path
+    redirect_to user_path(@current_user)
   end
 
   def index
@@ -48,9 +49,9 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
-    @imgs = Img.find_by(event_id: @event.id)
+    @places = Place.find_by(event_id: @event.id)
     @groups = Group.find_by(event_id: @event.id)
-    @message = Message.create(event_id: @event.id, title: @event.name, content: @event.name)
+    @message = Message.find_by(event_id: @event.id)
   end
 
   def attend
@@ -70,11 +71,10 @@ class EventsController < ApplicationController
       :name, 
       :time, 
       :loc, 
-      imgs_attributes: [:url],
       tags_attributes: [:main_tag],
+      messages_attributes: [:event_id, :title, :content],
+      places_attributes: [:name, :latitude, :longitude, :event_id],
       groups_attributes: [:event_id, :user_id, :number]
       )
   end
 end
-
-# params.require(:person).permit(contact: [ :email, :phone ])
