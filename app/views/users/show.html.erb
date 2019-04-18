@@ -1,62 +1,60 @@
-<div>
-   <h1> <%=@user.name%></h1>
-</div>
-<%if @wner %>
-   <% if @user.email != nil && @user.email != ""  %>
-      <h4>email: <%=@user.email%></h4>
-   <% end %>
-
-   <% if @user.dob != nil && @user.dob != "" %>
-      <h4>dob: <%=@user.dob%></h4>
-   <% end %>
-
-   <% if @user.loc != nil && @user.loc != ""%>
-      <h4>city: <%=@user.loc%></h4>
-   <% end %>
-<%end%>
-
-<div>
-   <h2>Your tags</h2>
-   <% @tags.each do |tag| %>
-      <h4><%= link_to tag.main_tag, tag_path(tag) %></h4>
-   <% end  %>
-</div>
-
- <h2>You're going</h2>
-<%if @events.empty?%>
-<div>
-   <p>No events, wanna<%= link_to ' tag ', new_tag_path %>more interests?</p>
-</div>
-<%else%>
-<div>
-   <% @events.each do |event| %>
-      <h4><%= link_to event.name, event_path(event) %></h4>
-   <% end %>
-</div>
-<% end %>
-
-<%if @wner %>
-<h2>Events nearby</h2>
-   <%begin%>
-      <%Event.all.each do |event|%>
-         <%if event.loc.downcase.include?(@user.loc.downcase)%>
-            <% unless @events.map(&:name).include?(event.name)%>
-               <%=link_to event.name, event_path(event)%>
+<br />
+<div class="ui three column stackable very relaxed center aligned grid">
+ <div class="stretched row">
+    <div class="five wide blue column">
+      <h2>You're going</h2>
+      <div class="ui segment">
+         <%if @events.empty?%>
+            <p>No events, wanna<%= link_to ' tag ', new_tag_path %>more interests?</p>
+         <%else%>
+            <% @events.each do |event| %>
+               <h4><%= link_to event.name, event_path(event) %></h4>
+            <% end %>
+         <% end %>
+      </div>
+    </div>
+    <div class="five wide column">
+      <h2>MeetUps nearby</h2>
+      <div class="ui segment">
+         <%begin%>
+            <%Event.all.each do |event|%>
+               <%if event.loc.downcase.include?(@user.loc.downcase)%>
+                  <% unless @events.map(&:name).include?(event.name)%>
+                     <%= @wner ? link_to(event.name, event_path(event)) : 'privacy by default'%>
+                  <%end%>
+               <%end%>
             <%end%>
+         <%rescue StandardError => e%>
+            <p>Add your <%= link_to "location", edit_user_path %> to find some</p>
          <%end%>
-      <%end%>
-   <%rescue StandardError => e%>
-      <p>Add your <%= link_to "location", edit_user_path %> to find some</p>
-   <%end%>
-<% end %>
+      </div>
+    </div>
+    <div class="three wide column">
+      <h2>Your tags</h2>
+      <div class="ui segment">
+         <% @tags.each do |tag| %>
+            <h4><%= link_to tag.main_tag, tag_path(tag) %></h4>
+         <% end  %>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<br />
+<br />
+<div>
+   <%= @wner ? link_to('Edit',edit_user_path) : 'privacy by default'%> |
+   <%= @wner ? link_to('Remove','/users/destroy', method: :delete) : 'privacy by default' %> |
+    <% if @user.email != nil && @user.email != ""  %>
+            email: <%=@wner ? @user.email : 'privacy by default'%> |
+         <% end %>
+         <% if @user.dob != nil && @user.dob != "" %>
+            dob: <%=@wner ? @user.dob : 'privacy by default'%> |
+         <% end %>
+         <% if @user.loc != nil && @user.loc != ""%>
+            city: <%=@wner ? @user.loc : 'privacy by default'%>
+         <% end %>
+</div>
 
-<%if @wner %>
-   <div>
-      <h2>Console</h2>
-      <%= button_to "edit", {action: "edit", controller: "users"}, method: "get" %>
-      <%= button_to "logout", {action: "logout", controller: "sessions"}, method: "delete" %>
-      <%= button_to "delete", {action: "destroy", controller: "users"}, method: :delete %>
-   </div>
-<% end %>
 <!-- <%= link_to 'users', users_path%> -->
 <!-- <%= button_to 'Create a Event', new_event_path, {method: :get, data: @user.id} %> -->
