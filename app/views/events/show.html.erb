@@ -8,7 +8,7 @@
 </h4>
 
 <h4>Event Date: <%= @event.time.strftime('%B %d, %Y at %H:%M') %></h4>
-<h4>Event Location: <%= @event.loc %></h4>
+<h4>City: <%= @event.loc %></h4>
 <h4>Max People: <%= @groups.number %></h4>
 <h4>People Attending: <%= @event.users.count %></h4>
 
@@ -27,8 +27,10 @@
     <% else %>
     <h4>You've missed the window to attend.</h4>
 <% end %>
+<br>
 
-<%= link_to 'Image', img_path(@imgs.id) %>
-<%= link_to 'Group messages', "/messages/#{@message.id}" %>
-<%= link_to 'Edit Event', edit_event_path(@event) %>
+<%= link_to 'Google Location', place_path(@places) %> |
+<%= link_to 'Group messages', message_path(@message)%> |
+<%= link_to 'Edit Event', edit_event_path(@event) %> |
+
 <%= link_to 'Delete Event', event_path(@event), method: :delete %>

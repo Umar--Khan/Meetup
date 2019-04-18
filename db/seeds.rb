@@ -10,11 +10,13 @@ Event.destroy_all
 Tag.destroy_all
 Message.destroy_all
 Img.destroy_all
+Place.destroy_all
 Usertag.destroy_all
 Eventtag.destroy_all
 Group.destroy_all
 
-
+Event.create(name: Faker::TvShows::GameOfThrones.house, time: Time.new(2002, 10, 31, 2, 2, 2), loc: Faker::Address.city)
+Place.create(name: "Buckingham Palace", latitude: "51.501564",longitude: "-0.141944", event_id: "1")
 # User.create(name: "test", email: Faker::Name.first_name + "@gmail.com", dob: rand(1..1000), loc: Faker::Address.state, admin: [true, false].sample, password: "pass")
 
 # 4.times do
