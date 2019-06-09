@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+MeetUp- An app to set up events and get people to settle for a place they will be meeting up at. Can share a google location and chat to the attendies.
 
-Things you may want to cover:
+Start by installing all the dependcies by
+```bundle install```
 
-* Ruby version
+Then ``` rails s``` to star the server.
 
-* System dependencies
+Thats it
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
