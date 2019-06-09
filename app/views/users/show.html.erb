@@ -5,7 +5,7 @@
       <h2>You're going</h2>
       <div class="ui segment">
          <%if @events.empty?%>
-            <p>No events, wanna<%= link_to ' tag ', new_tag_path %>more interests?</p>
+            <p class="tag_status">No events, wanna<%= link_to ' tag ', new_tag_path %>more interests?</p>
          <%else%>
             <% @events.each do |event| %>
                <h4><%= link_to event.name, event_path(event) %></h4>
@@ -55,6 +55,17 @@
             city: <%=@wner ? @user.loc : 'privacy by default'%>
          <% end %>
 </div>
+
+<style>
+   .tag_status {
+    color: black;
+   }
+   .link_to {
+      color: blue
+   }
+ </style>
+
+
 
 <!-- <%= link_to 'users', users_path%> -->
 <!-- <%= button_to 'Create a Event', new_event_path, {method: :get, data: @user.id} %> -->

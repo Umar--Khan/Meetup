@@ -32,7 +32,9 @@
               <i class="search link icon"></i>
             </div>
           </div>
+          <% if @current_user %>
           <%= link_to 'Logout', '/logout', {method: :delete, class:"ui item"} %>
+          <% end %>
         </div>
       </div>
 
